@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Headers,
+  HttpCode,
   Post,
   Req,
   UseGuards,
@@ -40,6 +41,7 @@ export class AuthController {
   }
 
   @Post('signin')
+  @HttpCode(200)
   async signin(@Body() loginDto: LoginDto, @Req() request: Request) {
     return await this.authService.signin(loginDto);
   }

@@ -3,7 +3,13 @@ import { CartItem } from 'src/carts/entities/cartItem.entity';
 import { ProductCategory } from 'src/categories/entities/productCategory.entity';
 import { DbEntity } from 'src/interfaces/Db-interface';
 import { OrderItem } from 'src/orders/entities/orderItem.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Product extends DbEntity {
@@ -20,6 +26,7 @@ export class Product extends DbEntity {
     example: 'iPhone 12 Pro',
     type: String,
   })
+  @Index()
   @Column('text')
   name: string;
 

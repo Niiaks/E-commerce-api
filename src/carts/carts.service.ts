@@ -57,7 +57,7 @@ export class CartsService {
     } else {
       const newCartItem = this.cartItemRepository.create({
         cart: cart,
-        product: product,
+        product,
         quantity: createCartDto.quantity,
         price: product.price,
       });

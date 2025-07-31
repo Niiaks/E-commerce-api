@@ -39,24 +39,10 @@ export class CartsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  async create(
-    @Body() createCartDto: CreateCartDto,
-    @Req() request: Request,
-    @Headers('x-idem-key') idempotencyKey: string,
-  ) {
+  async create(@Body() createCartDto: CreateCartDto, @Req() request: Request) {
     await this.cacheService.invalidatePattern(`${CART}:*`);
-    return this.cacheService.getOrSet(
-      IDEMPOTENCY(idempotencyKey),
-      async () => {
-        if (!request.user || !('userId' in request.user)) {
-          throw new Error('Invalid user in request');
-        }
-        await this.cartsService.create(createCartDto, request.user as User);
-      },
-      {
-        ttl: VERY_VERY_LONG,
-      },
-    );
+
+    return await this.cartsService.create(createCartDto, request.user as User);
   }
 
   @Get()
